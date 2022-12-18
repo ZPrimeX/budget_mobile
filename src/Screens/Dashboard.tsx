@@ -7,14 +7,14 @@ type Props = {};
 
 const Dashboard = (props: Props) => {
   return (
-    <>
+    <Box style={{ height: "100%" }}>
       <Box>
         <Graph />
       </Box>
       <Box>
         <Doughnut />
       </Box>
-    </>
+    </Box>
   );
 };
 

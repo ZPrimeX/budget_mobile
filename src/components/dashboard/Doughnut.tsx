@@ -63,7 +63,7 @@ const Doughnut = (props: Props) => {
       accessor={"population"}
       backgroundColor={"transparent"}
       paddingLeft={"0"}
-      center={[10, 50]}
+      center={[10, 10]}
       absolute
     />
   );
