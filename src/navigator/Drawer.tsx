@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Dashboard from "../Screens/Dashboard";
 import Login from "../Screens/Login";
 import Signup from "../Screens/Signup";
-import { AuthContext } from "../context/AuthProvider";
+import { AuthContext } from "../core/context/AuthProvider";
 
 const Drawer = createDrawerNavigator();
 
