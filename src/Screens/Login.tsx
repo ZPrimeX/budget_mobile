@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Text, VStack } from "native-base";
+import { Link as RNLink } from "@react-navigation/native";
 
 type Props = {};
 
@@ -50,16 +51,17 @@ const Login = (props: Props) => {
             >
               I'm a new user.{" "}
             </Text>
-            <Link
-              _text={{
+
+            <RNLink
+              to={{ screen: "Signup" }}
+              style={{
                 color: "indigo.500",
-                fontWeight: "medium",
-                fontSize: "sm",
+                fontWeight: "500",
+                fontSize: 14,
               }}
-              href="#"
             >
               Sign Up
-            </Link>
+            </RNLink>
           </HStack>
         </VStack>
       </Box>
