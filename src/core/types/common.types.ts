@@ -1,6 +1,6 @@
 export enum REDUX_STATUS {
   "idle",
-  "loading",
+  "pending",
   "fulfilled",
   "rejected",
 }

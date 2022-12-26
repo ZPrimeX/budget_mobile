@@ -3,9 +3,7 @@ import { Box } from "native-base";
 import Doughnut from "../components/dashboard/Doughnut";
 import Graph from "../components/dashboard/Graph";
 
-type Props = {};
-
-const Dashboard = (props: Props) => {
+const Dashboard = () => {
   return (
     <Box style={{ height: "100%" }}>
       <Box>

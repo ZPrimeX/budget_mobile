@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const Wallets = (props: Props) => {
+const Wallets = () => {
   return <></>;
 };
 
