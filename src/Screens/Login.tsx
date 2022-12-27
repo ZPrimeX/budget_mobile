@@ -1,9 +1,7 @@
 import React from "react";
 import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Text, VStack } from "native-base";
 
-type Props = {};
-
-const Login = (props: Props) => {
+const Login = () => {
   return (
     <Center w="100%">
       <Box safeArea p="2" py="8" w="90%" maxW="290">

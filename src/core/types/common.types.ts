@@ -1,7 +1,6 @@
-// enum
-export enum STATE_STATUS {
-  idle = "idle",
-  loading = "loading",
-  failed = "failed",
-  success = "success",
+export enum REDUX_STATUS {
+  "idle",
+  "pending",
+  "fulfilled",
+  "rejected",
 }
