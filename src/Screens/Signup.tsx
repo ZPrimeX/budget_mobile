@@ -4,9 +4,9 @@ import { request } from "../utils/axios";
 import { useAppDispatch, useAppSelector } from "../core/redux/hooks";
 import { selectAuth } from "../core/redux/auth/authSlice";
 import { signupThunk } from "../core/redux/auth/authThunks";
-import { setData } from "../utils/asyncStorage";
+import { setAsyncStorage } from "../utils/asyncStorage";
 
-const Signup = () => {
+const Signup = ({ navigation: { navigate } }: any) => {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(selectAuth);
   const [isEmailTaken, setIsEmailTaken] = useState(false);
@@ -52,7 +52,8 @@ const Signup = () => {
   const handleSignup = async () => {
     const res: any = await dispatch(signupThunk({ first_name, last_name, password, email }));
     if (res.meta.requestStatus === "fulfilled") {
-      await setData("token", res.payload.body.token);
+      await setAsyncStorage("token", res.payload.body.token);
+      navigate("Dashboard");
     }
   };
 
