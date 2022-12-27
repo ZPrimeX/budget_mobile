@@ -18,7 +18,7 @@ export const signupThunk = createAsyncThunk(
     last_name: string;
   }): Promise<{ body: DataResponse }> => {
     const response = await request.post("user/sign-up", payload);
-    return response.data;
+    return response.data; // ? {body: {token: string, user: {first_name: string, last_name: string, email: string, avatar: string}}}
   }
 );
 

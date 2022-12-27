@@ -4,6 +4,7 @@ export interface DataResponse {
   email: string;
   avatar: string;
   google_id: string;
+  token: string;
 }
 
 export interface fetchResponse {

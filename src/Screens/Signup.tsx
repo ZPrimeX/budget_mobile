@@ -2,27 +2,29 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Center, FormControl, Heading, Input, VStack, WarningIcon } from "native-base";
 import { request } from "../utils/axios";
 import { useAppDispatch, useAppSelector } from "../core/redux/hooks";
-import { SignUpThunk } from "../core/redux/auth/authThunks";
 import { selectAuth } from "../core/redux/auth/authSlice";
+import { signupThunk } from "../core/redux/auth/authThunks";
+import { setAsyncStorage } from "../utils/asyncStorage";
+import { NavigationProp } from "@react-navigation/native";
 
-const Signup = () => {
+const Signup = ({ navigation: { navigate } }: any) => {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(selectAuth);
   const [isEmailTaken, setIsEmailTaken] = useState(false);
+  const [emailWrong, setEmailWrong] = useState(false);
   const [passwordShort, setPasswordShort] = useState(false);
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // function isEmail(email: string): boolean {
-  //   const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  //   return emailRegex.test(email);
-  // }
+  function isEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return emailRegex.test(email);
+  }
 
   const checkEmail = async () => {
-    const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (emailRegex) {
+    if (isEmail(email)) {
       const { data } = await request.post("/user/validate", { email });
 
       if (data.message === "error") {
@@ -34,7 +36,9 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    checkEmail();
+    if (email.length > 3) {
+      checkEmail();
+    }
   }, [email]);
 
   const handlePasswordChange = (text: string) => {
@@ -46,8 +50,21 @@ const Signup = () => {
     }
   };
 
-  const handleSignup = () => {
-    dispatch(SignUpThunk({ first_name, last_name, password, email }));
+  const handleEmailChange = (text: string) => {
+    setEmail(text.toLowerCase());
+    if (!isEmail(text)) {
+      setEmailWrong(true);
+    } else {
+      setEmailWrong(false);
+    }
+  };
+
+  const handleSignup = async () => {
+    const res: any = await dispatch(signupThunk({ first_name, last_name, password, email }));
+    if (res.meta.requestStatus === "fulfilled") {
+      await setAsyncStorage("token", res.payload.body.token);
+      navigate("Dashboard");
+    }
   };
 
   return (
@@ -61,7 +78,7 @@ const Signup = () => {
           }}
           fontWeight="semibold"
         >
-          Signup {auth.status}
+          Signup
         </Heading>
         <VStack space={3} mt="5">
           <FormControl>
@@ -72,10 +89,12 @@ const Signup = () => {
             <FormControl.Label>Last Name</FormControl.Label>
             <Input autoComplete="name-family" value={last_name} onChangeText={(text) => setLastName(text)} />
           </FormControl>
-          <FormControl isInvalid={isEmailTaken}>
+          <FormControl isInvalid={isEmailTaken || emailWrong}>
             <FormControl.Label>Email</FormControl.Label>
-            <Input autoComplete="email" value={email} onChangeText={(text) => setEmail(text.toLowerCase())} />
-            <FormControl.ErrorMessage leftIcon={<WarningIcon />}>This email is taken!</FormControl.ErrorMessage>
+            <Input autoComplete="email" value={email} onChangeText={handleEmailChange} />
+            <FormControl.ErrorMessage leftIcon={<WarningIcon />}>
+              {isEmailTaken ? "This email is taken!" : "Email is invalid"}
+            </FormControl.ErrorMessage>
           </FormControl>
           <FormControl isInvalid={passwordShort}>
             <FormControl.Label>Password</FormControl.Label>
