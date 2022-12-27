@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { REDUX_STATUS } from "../../types/common.types";
 import { RootState } from "../store";
-import { SignUpThunk } from "./authThunks";
+import { fetchUserThunk, googleThunk, login, signupThunk, updateProfile } from "./authThunks";
 
 interface InitState {
   isAuth: boolean;
@@ -30,11 +30,29 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // ----------FETCH-------------
     builder
-      .addCase(SignUpThunk.pending, (state, action) => {
+      .addCase(fetchUserThunk.pending, (state) => {
         state.status = REDUX_STATUS.pending;
       })
-      .addCase(SignUpThunk.fulfilled, (state, action) => {
+      .addCase(fetchUserThunk.fulfilled, (state, action) => {
+        state.status = REDUX_STATUS.fulfilled;
+        state.first_name = action.payload.body.first_name;
+        state.last_name = action.payload.body.last_name;
+        state.email = action.payload.body.email;
+        state.avatar = action.payload.body.avatar;
+        state.isAuth = true;
+      })
+      .addCase(fetchUserThunk.rejected, (state) => {
+        state.status = REDUX_STATUS.rejected;
+      });
+
+    //? -------------SIGNUP---------------
+    builder
+      .addCase(signupThunk.pending, (state) => {
+        state.status = REDUX_STATUS.pending;
+      })
+      .addCase(signupThunk.fulfilled, (state, action) => {
         state.status = REDUX_STATUS.fulfilled;
         state.first_name = action.payload.body.first_name;
         state.last_name = action.payload.body.last_name;
@@ -43,9 +61,60 @@ const authSlice = createSlice({
         state.google_id = action.payload.body.google_id;
         state.isAuth = true;
       })
-      .addCase(SignUpThunk.rejected, (state) => {
+      .addCase(signupThunk.rejected, (state) => {
         state.status = REDUX_STATUS.rejected;
         state.isAuth = false;
+      });
+
+    //? -------------GOOGLE SIGNUP---------------
+
+    builder
+      .addCase(googleThunk.pending, (state) => {
+        state.status = REDUX_STATUS.pending;
+      })
+      .addCase(googleThunk.fulfilled, (state, action) => {
+        state.status = REDUX_STATUS.fulfilled;
+        state.first_name = action.payload.body.first_name;
+        state.last_name = action.payload.body.last_name;
+        state.email = action.payload.body.email;
+        state.avatar = action.payload.body.avatar;
+        state.google_id = action.payload.body.google_id;
+        state.isAuth = true;
+      })
+      .addCase(googleThunk.rejected, (state) => {
+        state.status = REDUX_STATUS.rejected;
+      });
+
+    //* -------------LOGIN---------------
+    builder
+      .addCase(login.pending, (state) => {
+        state.status = REDUX_STATUS.pending;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.status = REDUX_STATUS.fulfilled;
+        state.first_name = action.payload.body.first_name;
+        state.last_name = action.payload.body.last_name;
+        state.email = action.payload.body.email;
+        state.avatar = action.payload.body.avatar;
+        state.isAuth = true;
+      })
+      .addCase(login.rejected, (state) => {
+        state.status = REDUX_STATUS.rejected;
+      });
+
+    //! -------------PATCH---------------
+    builder
+      .addCase(updateProfile.pending, (state) => {
+        state.status = REDUX_STATUS.pending;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.status = REDUX_STATUS.fulfilled;
+        state.first_name = action.payload.body.first_name;
+        state.last_name = action.payload.body.last_name;
+        state.email = action.payload.body.email;
+      })
+      .addCase(updateProfile.rejected, (state) => {
+        state.status = REDUX_STATUS.rejected;
       });
   },
 });
