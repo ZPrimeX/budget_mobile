@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { REDUX_STATUS } from "../../types/common.types";
 import { RootState } from "../store";
 import { fetchUserThunk, googleThunk, login, signupThunk, updateProfile } from "./authThunks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface InitState {
   isAuth: boolean;
@@ -28,7 +29,11 @@ const initialState: InitState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: () => {
+      AsyncStorage.removeItem("token");
+    },
+  },
   extraReducers: (builder) => {
     // ----------FETCH-------------
     builder
@@ -122,3 +127,4 @@ const authSlice = createSlice({
 export default authSlice.reducer;
 
 export const selectAuth = (state: RootState) => state.auth;
+export const { logout } = authSlice.actions;
