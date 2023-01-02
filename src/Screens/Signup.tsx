@@ -8,7 +8,7 @@ import { setAsyncStorage } from "../utils/asyncStorage";
 const Signup = ({ navigation: { navigate } }: any) => {
   const dispatch = useAppDispatch();
   const [isEmailTaken, setIsEmailTaken] = useState(false);
-  const [emailWrong, setEmailWrong] = useState(true);
+  const [emailWrong, setEmailWrong] = useState(false);
   const [passwordShort, setPasswordShort] = useState(false);
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");

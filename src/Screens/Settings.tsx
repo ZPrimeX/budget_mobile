@@ -3,9 +3,7 @@ import React from "react";
 import { useAppDispatch } from "../core/redux/hooks";
 import { logout } from "../core/redux/auth/authSlice";
 
-type Props = {};
-
-const Settings = (props: Props) => {
+const Settings = () => {
   const dispatch = useAppDispatch();
   return (
     <>

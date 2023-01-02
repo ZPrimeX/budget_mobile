@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import Dashboard from "../Screens/Dashboard";
 import Login from "../Screens/Login";
 import Signup from "../Screens/Signup";
-import { useAppSelector } from "../core/redux/hooks";
+import { useAppDispatch, useAppSelector } from "../core/redux/hooks";
 import { selectAuth } from "../core/redux/auth/authSlice";
 import Settings from "../Screens/Settings";
+import { getAsyncStorage } from "../utils/asyncStorage";
+import { fetchUserThunk } from "../core/redux/auth/authThunks";
 
 const Drawer = createDrawerNavigator();
 
 function AppDrawer() {
-  // const { auth } = React.useContext(AuthContext);
   const auth = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
+
+  const checkAuth = async () => {
+    const token = await getAsyncStorage("token");
+    if (token && auth.isAuth === false) {
+      dispatch(fetchUserThunk());
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   return auth.isAuth ? (
     <NavigationContainer>
       <Drawer.Navigator>
