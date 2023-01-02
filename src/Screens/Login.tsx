@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Text, VStack } from "native-base";
-import { useAppDispatch } from "../core/redux/hooks";
+import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Spinner, Text, VStack } from "native-base";
+import { useAppDispatch, useAppSelector } from "../core/redux/hooks";
 import { login } from "../core/redux/auth/authThunks";
+import { selectAuth } from "../core/redux/auth/authSlice";
+import { REDUX_STATUS } from "../core/types/common.types";
 
 const Login = ({ navigation: { navigate } }: any) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const auth = useAppSelector(selectAuth);
 
   const handleLogin = async () => {
     const res: any = await dispatch(login({ password, email }));
@@ -30,7 +33,7 @@ const Login = ({ navigation: { navigate } }: any) => {
         <VStack space={3} mt="5">
           <FormControl>
             <FormControl.Label>Email</FormControl.Label>
-            <Input autoComplete="email" value={email} onChangeText={(text) => setEmail(text)} />
+            <Input autoComplete="email" value={email} onChangeText={(text) => setEmail(text.toLowerCase())} />
           </FormControl>
           <FormControl>
             <FormControl.Label>Password</FormControl.Label>
@@ -52,8 +55,8 @@ const Login = ({ navigation: { navigate } }: any) => {
               Forgot Password?
             </Link>
           </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={handleLogin}>
-            Login
+          <Button mt="2" colorScheme="indigo" onPress={handleLogin} disabled={auth.status === REDUX_STATUS.pending}>
+            {auth.status === REDUX_STATUS.pending ? <Spinner accessibilityLabel="Loading" color="white" /> : "Login"}
           </Button>
           <HStack mt="6" justifyContent="center">
             <Text

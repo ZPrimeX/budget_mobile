@@ -1,10 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { request } from "../../../utils/axios";
 import { DataResponse, fetchResponse } from "./authResponses";
+import { getAsyncStorage } from "../../../utils/asyncStorage";
 
 // ----------FETCH-------------
 export const fetchUserThunk = createAsyncThunk("auth/fetchUserData", async (): Promise<{ body: fetchResponse }> => {
-  const response = await request.get("user/profile");
+  const token = await getAsyncStorage("token");
+  const response = await request.get("user/profile", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 });
 
