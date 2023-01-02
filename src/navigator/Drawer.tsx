@@ -6,6 +6,7 @@ import Login from "../Screens/Login";
 import Signup from "../Screens/Signup";
 import { useAppSelector } from "../core/redux/hooks";
 import { selectAuth } from "../core/redux/auth/authSlice";
+import Settings from "../Screens/Settings";
 
 const Drawer = createDrawerNavigator();
 
@@ -16,6 +17,7 @@ function AppDrawer() {
     <NavigationContainer>
       <Drawer.Navigator>
         <Drawer.Screen name="Dashboard" component={Dashboard} />
+        <Drawer.Screen name="Settings" component={Settings} />
       </Drawer.Navigator>
     </NavigationContainer>
   ) : (

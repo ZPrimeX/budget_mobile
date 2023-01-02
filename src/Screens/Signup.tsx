@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Center, FormControl, Heading, Input, VStack, WarningIcon } from "native-base";
 import { request } from "../utils/axios";
-import { useAppDispatch, useAppSelector } from "../core/redux/hooks";
-import { selectAuth } from "../core/redux/auth/authSlice";
+import { useAppDispatch } from "../core/redux/hooks";
 import { signupThunk } from "../core/redux/auth/authThunks";
 import { setAsyncStorage } from "../utils/asyncStorage";
 
 const Signup = ({ navigation: { navigate } }: any) => {
   const dispatch = useAppDispatch();
-  const auth = useAppSelector(selectAuth);
   const [isEmailTaken, setIsEmailTaken] = useState(false);
   const [emailWrong, setEmailWrong] = useState(true);
   const [passwordShort, setPasswordShort] = useState(false);
