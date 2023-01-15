@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { REDUX_STATUS } from "../../types/common.types";
 import { RootState } from "../store";
 import { fetchUserThunk, googleThunk, login, signupThunk, updateProfile } from "./authThunks";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { removeAsyncStorage } from "../../../utils/asyncStorage";
 
 interface InitState {
