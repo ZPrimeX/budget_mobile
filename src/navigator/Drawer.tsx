@@ -9,6 +9,7 @@ import { selectAuth } from "../core/redux/auth/authSlice";
 import Settings from "../Screens/Settings";
 import { getAsyncStorage } from "../utils/asyncStorage";
 import { fetchUserThunk } from "../core/redux/auth/authThunks";
+import Profile from "../Screens/Profile";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +30,7 @@ function AppDrawer() {
     <NavigationContainer>
       <Drawer.Navigator>
         <Drawer.Screen name="Dashboard" component={Dashboard} />
+        <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="Settings" component={Settings} />
       </Drawer.Navigator>
     </NavigationContainer>

@@ -38,9 +38,7 @@ const authSlice = createSlice({
       state.token = "";
       state.avatar = "";
       state.google_id = "";
-      removeAsyncStorage("token").then(() => {
-        console.log("token removed");
-      });
+      removeAsyncStorage("token");
     },
   },
   extraReducers: (builder) => {
