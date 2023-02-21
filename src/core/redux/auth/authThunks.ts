@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { request } from "../../../utils/axios";
-import { DataResponse, fetchResponse } from "./authResponses";
+import { DataResponse, IUpdateProfile, fetchResponse } from "./authResponses";
 import { getAsyncStorage } from "../../../utils/asyncStorage";
 
 // ----------FETCH-------------
@@ -47,7 +47,10 @@ export const login = createAsyncThunk(
 );
 
 //! ---------PATCH--------------
-export const updateProfile = createAsyncThunk("auth/updateProfile", async (data): Promise<{ body: DataResponse }> => {
-  const res = await request.patch("user/profile", data);
-  return res.data;
-});
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (data: IUpdateProfile): Promise<{ body: DataResponse }> => {
+    const res = await request.patch("user/profile", data);
+    return res.data;
+  }
+);

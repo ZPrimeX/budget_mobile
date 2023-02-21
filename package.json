@@ -9,11 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-navigation/drawer": "^6.5.5",
     "@react-navigation/native": "^6.1.1",
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.1",
     "expo": "^47.0.9",
+    "expo-image-picker": "~14.0.2",
     "expo-status-bar": "~1.4.2",
     "native-base": "^3.4.25",
     "react": "18.1.0",
@@ -28,8 +30,7 @@
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.9",
     "react-redux": "^8.0.5",
-    "@react-native-async-storage/async-storage": "~1.17.3",
-    "expo-image-picker": "~14.0.2"
+    "toastify-react-native": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
