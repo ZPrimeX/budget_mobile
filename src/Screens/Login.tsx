@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../core/redux/hooks";
 import { login } from "../core/redux/auth/authThunks";
 import { selectAuth } from "../core/redux/auth/authSlice";
 import { REDUX_STATUS } from "../core/types/common.types";
+import { setAsyncStorage } from "../utils/asyncStorage";
 
 const Login = ({ navigation: { navigate } }: any) => {
   const dispatch = useAppDispatch();
@@ -13,6 +14,7 @@ const Login = ({ navigation: { navigate } }: any) => {
 
   const handleLogin = async () => {
     const res: any = await dispatch(login({ password, email }));
+    await setAsyncStorage("token", res.payload?.body.token);
     if (res.payload?.message === "success") {
       navigate("Dashboard");
     }

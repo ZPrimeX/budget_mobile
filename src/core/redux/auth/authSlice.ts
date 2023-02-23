@@ -13,6 +13,7 @@ interface InitState {
   token: string;
   avatar: string;
   google_id: string;
+  createdAt: string;
 }
 
 const initialState: InitState = {
@@ -24,6 +25,7 @@ const initialState: InitState = {
   token: "",
   avatar: "",
   google_id: "",
+  createdAt: "",
 };
 
 const authSlice = createSlice({
@@ -53,6 +55,7 @@ const authSlice = createSlice({
         state.last_name = action.payload.body.last_name;
         state.email = action.payload.body.email;
         state.avatar = action.payload.body.avatar;
+        state.createdAt = action.payload.body.createdAt;
         state.isAuth = true;
       })
       .addCase(fetchUserThunk.rejected, (state) => {
@@ -109,6 +112,7 @@ const authSlice = createSlice({
         state.email = action.payload.body.email;
         state.avatar = action.payload.body.avatar;
         state.isAuth = true;
+        state.token = action.payload.body.token;
       })
       .addCase(login.rejected, (state) => {
         state.status = REDUX_STATUS.rejected;
@@ -124,6 +128,7 @@ const authSlice = createSlice({
         state.first_name = action.payload.body.first_name;
         state.last_name = action.payload.body.last_name;
         state.email = action.payload.body.email;
+        state.avatar = action.payload.body.avatar;
       })
       .addCase(updateProfile.rejected, (state) => {
         state.status = REDUX_STATUS.rejected;
