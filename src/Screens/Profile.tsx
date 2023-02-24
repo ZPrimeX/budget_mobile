@@ -54,6 +54,15 @@ const Profile = () => {
     }
   };
 
+  const handleChangeFirst = (text: string) => {
+    setFirst(text);
+    if (auth.first_name !== text) {
+      setIsTouched(true);
+    } else {
+      setIsTouched(false);
+    }
+  };
+
   return (
     <>
       <Box style={styles.avatar_container}>
@@ -68,7 +77,7 @@ const Profile = () => {
           <Text>{`${auth.first_name} ${auth.last_name}`}</Text>
           <Box display={"flex"} flexDirection={"row"}>
             <Text color={"#5048E5"}>Joined on: </Text>
-            <Text>{`${dayjs(auth.createdAt || 0)}`}</Text>
+            <Text>{`${dayjs(auth.createdAt).format("ddd, DD MMM YYYY, hh:mm:ss A")}`}</Text>
           </Box>
           <Button mt={3} variant={"outline"} onPress={pickImage} colorScheme={"indigo"}>
             Upload

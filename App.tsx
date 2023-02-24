@@ -1,8 +1,8 @@
 import { Provider as ReduxProvider } from "react-redux";
-import AppDrawer from "./src/navigator/Drawer";
 import { NativeBaseProvider, extendTheme } from "native-base";
 import { store } from "./src/core/redux/store";
 import ToastManage from "toastify-react-native";
+import AppTab from "./src/navigator/Tab";
 
 const config = {
   useSystemColorMode: false,
@@ -15,7 +15,7 @@ export default function App() {
   return (
     <ReduxProvider store={store}>
       <NativeBaseProvider theme={customTheme}>
-        <AppDrawer />
+        <AppTab />
         <ToastManage />
       </NativeBaseProvider>
     </ReduxProvider>
