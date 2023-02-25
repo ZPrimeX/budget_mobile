@@ -1,16 +1,18 @@
-import { Box, Heading, Text } from "native-base";
+import { Box, Heading, ScrollView, Text } from "native-base";
 import React from "react";
 import { StyleSheet } from "react-native";
 
 const Wallets = () => {
   return (
     <>
-      <Box style={styles.wallet_container}>
-        <Heading>Main</Heading>
-        <Text fontSize={"xl"} padding={3}>
-          Details
-        </Text>
-      </Box>
+      <ScrollView>
+        <Box style={styles.wallet_container}>
+          <Heading>Main</Heading>
+          <Text fontSize={"xl"} padding={3}>
+            Details
+          </Text>
+        </Box>
+      </ScrollView>
     </>
   );
 };

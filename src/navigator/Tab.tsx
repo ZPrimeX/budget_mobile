@@ -14,6 +14,7 @@ import Wallets from "../Screens/Wallets";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native";
 import Categories from "../Screens/Categories";
+import Transactions from "../Screens/Transactions";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -49,6 +50,7 @@ function AppTab() {
             headerRight: () => <Button onPress={() => alert("Create a wallet")} title="+" color="#00cc00" />,
           }}
         />
+        <Tab.Screen name="Transactions" component={Transactions} />
         <Tab.Screen name="Profile" component={Profile} />
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
